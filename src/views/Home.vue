@@ -1,18 +1,42 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="vendor-list">
+    <VendorItem
+    v-for="item in vendorList"
+    :key="item.id"
+    @click="go(item)"
+    :title="item.title"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import VendorItem from "../components/VendorItem";
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    VendorItem,
+  },
+  created() {
+    console.log();
+  },
+  computed: {
+    vendorList() {
+      return this.$store.getters.getVendors;
+    }
+  },
+  methods: {
+    go(item) {
+      console.log(item);
+      this.$router.push(`vendor/${item.id}`)
+    }
   }
 }
 </script>
+
+<style>
+  .vendor-list {
+    display: flex;
+    flex-flow: row wrap;
+  }
+</style>
