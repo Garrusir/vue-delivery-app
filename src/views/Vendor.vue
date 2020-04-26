@@ -6,14 +6,34 @@
           <router-link
           tag="a"
           class="vendor-header__link"
-          to="/">Все рестораны</router-link>
+          to="/">
+            <i class="material-icons vendor-header__icon">
+              keyboard_arrow_left
+            </i>
+
+            <span>
+              Все рестораны
+            </span>
+          </router-link>
           <div class="vendor-header__title"> {{  $route.params.id  }}</div>
         </div>
       </div>
-      Header
     </div>
     <div class="vendor-menu">
-      Menu
+      <h1> Меню </h1>
+      <div class="dish-wrap">
+        <DishItem
+        title="Карбонара"
+        description="Очень по-итальянски"/>
+
+        <DishItem
+        title="Карбонара"
+        description="Очень по-итальянски"/>
+
+        <DishItem
+        title="Карбонара"
+        description="Очень по-итальянски"/>
+      </div>
     </div>
     <div class="vendor-info">
       Info
@@ -24,12 +44,12 @@
 
 <script>
 // @ is an alias to /src
-// import VendorItem from "../components/VendorItem";
+import DishItem from "../components/DishItem";
 
 export default {
   name: 'Vendor',
-  created() {
-    console.log();
+  components: {
+    DishItem,
   },
   computed: {
     vendorList() {
@@ -56,10 +76,19 @@ export default {
     height: 100%;
     width: 800px;
     margin: 0 auto;
+    padding: 16px 0;
   }
 
   .vendor-header__link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     color: #fff;
+    text-decoration: none;
+  }
+
+  .vendor-header__icon {
+    font-size: 32px;
   }
 
   .vendor-header__title {
