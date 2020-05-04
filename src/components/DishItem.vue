@@ -4,16 +4,18 @@
     class="dish-item">
         <div class="dish-item__img"
         :style="{
-        'background-image': `url('https://www.delivery-club.ru/media/cms/relation_product/33267/313105348_m650.jpg')`
+        'background-image': dish.imageURL ? `url(${dish.imageURL})` : ''
         }"/>
 
         <div class="dish-item__wrap">
             <div class="dish-item__title">
-                11111111111111 {{ title }}
+                {{ dish.title }}
             </div>
             <div class="dish-item__description">
-                {{ description }}
+                {{ dish.description }}
             </div>
+            <button
+            @click="$store.dispatch('addItemToBasket', dish)"> Добавить в корзину </button>
         </div>
     </div>
 </template>
@@ -22,24 +24,20 @@
   export default {
     name: "DishItem",
     props: {
-      title: {
-        type: String,
+      dish: {
+        type: Object,
         required: true,
       },
-      description: {
-        type: String,
-        required: true,
-      },
-    }, 
-    created() {
-        console.log('hi')
-    }
+    },
   }
 </script>
 
 <style scoped lang="scss">
+    .dish-item {
+        background-color: #ffffff;
+    }
     .dish-item__img {
-        width: 300px;
+        width: 100%;
         height: 300px;
 
         img {

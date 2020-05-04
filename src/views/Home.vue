@@ -4,7 +4,8 @@
     v-for="item in vendorList"
     :key="item.id"
     @click="go(item)"
-    :title="item.title"/>
+    :title="item.title"
+    class="vendor-item"/>
   </div>
 </template>
 
@@ -27,7 +28,6 @@ export default {
   },
   methods: {
     go(item) {
-      console.log(item);
       this.$router.push(`vendor/${item.id}`)
     }
   }
@@ -38,5 +38,8 @@ export default {
   .vendor-list {
     display: flex;
     flex-flow: row wrap;
+  }
+  .vendor-item:nth-child(3n) {
+    margin-right: 0;
   }
 </style>

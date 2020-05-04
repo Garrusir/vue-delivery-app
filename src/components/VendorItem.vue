@@ -37,16 +37,12 @@
      margin-right: 16px;
      margin-bottom: 24px;
      box-sizing: border-box;
+     background-color: #ffffff;
      box-shadow: 0 8px 8px 0 rgba(0,0,0,.04),
                  0 -2px 8px 0 rgba(0,0,0,.04);
      transition: box-shadow 150ms ease-in-out,
                  transform 150ms ease-in-out;
  }
-
- .vendor-item:nth-child(3n) {
-     margin-right: 0;
- }
-
 
  .vendor-item:hover {
      transform: translateY(-4px);
