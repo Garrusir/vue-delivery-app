@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <HeaderDude/>
-    <router-view/>
+    <div class="layout__content">
+      <router-view/>
+    </div>
     <FooterDude/>
   </div>
 </template>
@@ -22,7 +24,9 @@
     margin: 0;
     padding: 0;
     background-color: #f6f6f6;
+    box-sizing: border-box;
   }
-  #app {
+  .layout__content {
+    margin: 16px 60px;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="basket__container">
         <div
         v-if="$store.getters.getTotalPrice === 0"
         class="basket__empty">
@@ -32,7 +32,7 @@
                         class="basket__icon"> + </div>
                     </div>
                     <div class="basket__price">
-                        {{ item.price }}
+                        {{ item.price }} ₽
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
             @click="$router.push('/checkout')"
             class="basket__meta basket__button">
                 <span>Заказать</span>
-                <span>{{ $store.getters.getTotalPrice}} </span>
+                <span>{{ $store.getters.getTotalPrice}} ₽ </span>
             </div>
         </div>
     </div>
@@ -66,11 +66,35 @@
 </script>
 
 <style lang="scss">
+    .basket__container {
+        display: flex;
+        flex-flow: column nowrap;
+        flex-grow: 1;
+        justify-content: flex-start;
+        padding: 0 12px;
+
+    }
+
     .basket__item {
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
     }
+
+    .basket__empty {
+        display: flex;
+        flex-grow: 1;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        color: #555;
+    }
+
+    .basket__not-empty {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
     .basket__count {
         display: flex;
         flex-flow: row nowrap;

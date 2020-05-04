@@ -15,6 +15,7 @@
               Все рестораны
             </span>
           </router-link>
+
           <div class="vendor-header__title"> {{  $route.params.id  }}</div>
         </div>
       </div>
@@ -31,9 +32,13 @@
                   class="vendor-menu__dish"/>
         </div>
         <div class="vendor-info">
+          <h2> Информация </h2>
+          <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquid atque consectetur cum cupiditate delectus dolor earum error eveniet exercitationem, explicabo, fuga illo magni maiores minima molestiae molestias nisi non numquam obcaecati odio officia praesentium quaerat qui quia quibusdam ratione reiciendis rem sit tempora, ut veniam vero? Fugiat, perferendis.
+          </p>
         </div>
       </div>
+
       <div class="vendor-menu__basket">
         <BasketDude/>
       </div>
@@ -75,7 +80,7 @@ export default {
 
   .vendor-header__wrap {
     height: 100%;
-    width: 800px;
+    width: 90%;
     margin: 0 auto;
     padding: 16px 0;
   }
@@ -96,6 +101,7 @@ export default {
     font-size: 46px;
     font-weight: 700;
     color: #fff;
+    margin-left: 32px;
   }
 
   .vendor-menu-container {
@@ -109,8 +115,11 @@ export default {
   }
 
   .vendor-menu__dish {
+    min-width: 240px;
+    width: calc(100% / 3 - 11px);
     overflow: hidden;
     flex-grow: 1;
+    margin-bottom: 16px;
     margin-right: 16px;
     &:nth-child(3n) {
       margin-right: 0;
@@ -120,12 +129,25 @@ export default {
   .vendor-menu__main {
     flex-grow: 1;
     flex-shrink: 1;
+    margin-right: 260px;
   }
 
   .vendor-menu__basket {
+    display: flex;
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 300px;
+    width: 300px;
     margin-left: 18px;
+    position: fixed;
+    top: 70px;
+    right: 0;
+    background-color: #fff;
+    height: 100%;
+    box-shadow: 0 0px 8px 0 rgba(0,0,0,.04),
+                0 0px 8px 0 rgba(0,0,0,.04)
+  }
+
+  .vendor-info p{
+    color: #555;
   }
 </style>

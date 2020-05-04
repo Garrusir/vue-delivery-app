@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        Footer
+        © 2020, ООО «Название», официальный сайт 
     </div>
 </template>
 
@@ -11,5 +11,11 @@
 </script>
 
 <style scoped lang="scss">
-
+  .footer {
+    box-sizing: border-box;
+    background-color: #d6d6d6;
+    padding: 64px 32px;
+    border-top: 1px solid #ccc;
+    color: #555;
+  }
 </style>

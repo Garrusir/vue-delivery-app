@@ -19,7 +19,6 @@ export default {
     VendorItem,
   },
   created() {
-    console.log();
   },
   computed: {
     vendorList() {
