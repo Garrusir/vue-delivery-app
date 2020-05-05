@@ -9,41 +9,23 @@
     <div class="order-page__main">
       <div class="order-page__form">
         <h2>Доставка</h2>
-        <div class="order-page__input">
-          <label for="phone">Телефон для связи</label>
-          <input id="phone" type="text">
-        </div>
+        <BaseInput label="Телефон для связи" value=" " type="text" class="order-page__input"/>
 
-        <div class="order-page__input">
-          <label for="address">Адрес доставки</label>
-          <input id="address" type="text">
-        </div>
+        <BaseInput label="Адрес доставки" value=" " type="text" class="order-page__input"/>
 
         <div class="order-page__input-row">
-          <div class="order-page__input">
-            <label for="porch">Подъезд</label>
-            <input id="porch" type="text">
-          </div>
+          <BaseInput label="Подъезд" value=" " type="text" class="order-page__input"/>
 
-          <div class="order-page__input">
-            <label for="intercom">Домофон</label>
-            <input id="intercom" type="text">
-          </div>
+          <BaseInput label="Домофон" value=" " type="text" class="order-page__input"/>
 
-          <div class="order-page__input">
-            <label for="flow">Этаж</label>
-            <input id="flow" type="number">
-          </div>
+          <BaseInput label="Этаж" value=" " type="number" class="order-page__input"/>
 
-          <div class="order-page__input">
-            <label for="phone">Квартира</label>
-            <input id="phone" type="number">
-          </div>
+          <BaseInput label="Квартира" value=" " type="number" class="order-page__input"/>
         </div>
 
         <div class="order-page__input">
           <label for="comment">Комментарий</label>
-          <textarea id="comment" type="text" />
+          <textarea id="comment" type="text" resize="none"/>
         </div>
 
         <div
@@ -63,10 +45,13 @@
 <script>
 // @ is an alias to /src
 import BasketDude from "../components/BasketDude";
+import BaseInput from "../components/blocks/BaseInput";
+
 export default {
   name: 'OrderPage',
   components: {
     BasketDude,
+    BaseInput
   },
   computed: {
   }
@@ -90,6 +75,60 @@ export default {
     box-shadow: 0 8px 8px 0 rgba(0,0,0,.04),
     0 -2px 8px 0 rgba(0,0,0,.04);
     background-color: #ffffff;
+  }
+
+  .order-page__input-row {
+    margin-top: 18px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .order-page__input {
+      margin-right: 12px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .order-page__input {
+    margin-top: 18px;
+
+    textarea {
+      width: 100%;
+      padding: 4px 11px;
+      color: rgba(0,0,0,.65);
+      font-size: 14px;
+      line-height: 1.5715;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #d9d9d9;
+      border-radius: 2px;
+      transition: all .3s;
+      resize: none;
+
+      &:hover {
+        border-color: #40a9ff;
+        border-right-width: 1px !important;
+      }
+
+      &:focus {
+        border-color: #40a9ff;
+        border-right-width: 1px !important;
+        outline: 0;
+        box-shadow: 0 0 0 2px rgba(24,144,255,.2);
+      }
+
+      &::placeholder {
+        color: #bfbfbf;
+      }
+    }
+  }
+
+  .basket__meta {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
   }
 
   .order-page__cart {
