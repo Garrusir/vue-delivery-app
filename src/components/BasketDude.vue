@@ -19,7 +19,9 @@
                 v-for="item in basketItems"
                 :key="item.id"
                 class="basket__item">
-                    <div class="basket__title">
+                    <div
+                    :title="item.title"
+                    class="basket__title">
                         {{ item.title }}
                     </div>
                     <div class="basket__count">
@@ -72,7 +74,6 @@
         flex-grow: 1;
         justify-content: flex-start;
         padding: 0 12px;
-
     }
 
     .basket__item {
@@ -93,6 +94,13 @@
     .basket__not-empty {
         display: flex;
         flex-flow: column nowrap;
+    }
+
+    .basket__title {
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .basket__count {
