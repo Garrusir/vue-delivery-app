@@ -1,54 +1,82 @@
 <template>
     <div
-    class="main-form">
-        <div class="main-form__input">
-            <input type="text" />
+    @click.self="$store.commit('closeLoginForm')"
+    class="popup-layout">
+        <div class="main-form">
+            <BaseInput
+            v-model="login"
+            label="Логин"
+            type="text"
+            class="main-form__input"/>
+
+            <BaseInput
+            v-model="password"
+            label="Пароль"
+            type="password"
+            class="main-form__input"/>
+
+            <button>Войти</button>
+            <div
+            @click="$store.commit('closeLoginForm')"
+            class="main-form__icon">
+                <span class="material-icons">
+                    close
+                </span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+  import BaseInput from "./blocks/BaseInput";
+
   export default {
-    name: "VendorItem",
+    name: "Login",
+    components: {
+      BaseInput,
+    },
     props: {
-      title: {
-        type: String,
-        required: true,
+    },
+    data: () => {
+      return {
+        login: '',
+        password: '',
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
- .vendor-item {
-     overflow: hidden;
-     cursor: pointer;
-     width: calc(100% / 3 - 11px);
-     border-radius: 4px;
-     margin-right: 16px;
-     margin-bottom: 24px;
-     box-sizing: border-box;
-     background-color: #ffffff;
-     box-shadow: 0 8px 8px 0 rgba(0,0,0,.04),
-                 0 -2px 8px 0 rgba(0,0,0,.04);
-     transition: box-shadow 150ms ease-in-out,
-                 transform 150ms ease-in-out;
- }
-
- .vendor-item:hover {
-     transform: translateY(-4px);
-     box-shadow: 0 8px 8px 0 rgba(0,0,0,.1),
-                 0 4px 8px 0 rgba(0,0,0,.04);
- }
- .vendor-item__wrap {
-     height: 84px;
-     padding: 16px;
-     .vendor-item__head {
-         font-size: 22px;
-         font-weight: 700;
-     }
- }
- .vendor-item__image img {
-     width: 100%;
- }
+    .popup-layout {
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0, .6);
+        z-index: 100;
+    }
+    .main-form {
+        min-width: 200px;
+        flex-basis: 100%;
+        max-width: 400px;
+        background-color: #fff;
+        padding: 34px 22px;
+        margin: 0 14px;
+        position: relative;
+    }
+    .main-form__input {
+        margin-top: 14px;
+    }
+    .main-form__icon {
+        position: absolute;
+        cursor: pointer;
+        top: 10px;
+        right: 10px;
+        color: #828282;
+    }
 </style>

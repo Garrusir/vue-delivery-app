@@ -28,10 +28,7 @@
           <textarea id="comment" type="text" resize="none"/>
         </div>
 
-        <div
-        class="basket__meta basket__button">
-          <span>Заказать</span>
-        </div>
+        <BaseButton label="Заказать" />
       </div>
 
       <div class="order-page__cart">
@@ -46,12 +43,14 @@
 // @ is an alias to /src
 import BasketDude from "../components/BasketDude";
 import BaseInput from "../components/blocks/BaseInput";
+import BaseButton from "../components/blocks/BaseButton";
 
 export default {
   name: 'OrderPage',
   components: {
     BasketDude,
-    BaseInput
+    BaseInput,
+    BaseButton
   },
   computed: {
   }

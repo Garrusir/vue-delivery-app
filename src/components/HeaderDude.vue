@@ -5,7 +5,9 @@
                 <img src="@/assets/logo.svg">
                 <span class="header__title">Название</span>
             </div>
-            <div class="header__login">
+            <div
+            @click="$store.commit('openLoginForm')"
+            class="header__login">
                 <span class="header__icon material-icons">
                     person
                 </span>

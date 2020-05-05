@@ -38,19 +38,18 @@
                     </div>
                 </div>
             </div>
-
-            <div
-            v-if="!hideOrderButton"
-            @click="$router.push('/checkout')"
-            class="basket__meta basket__button">
-                <span>Заказать</span>
-                <span>{{ $store.getters.getTotalPrice}} ₽ </span>
-            </div>
+            <BaseButton
+               v-if="!hideOrderButton"
+               :label="`Заказать ${ $store.getters.getTotalPrice} ₽ `"
+               @click="$router.push('/checkout')"
+            />
         </div>
     </div>
 </template>
 
 <script>
+  import BaseButton from "./blocks/BaseButton";
+
   export default {
     name: "BasketDude",
     props: {
@@ -64,6 +63,9 @@
         return this.$store.getters.getBasketItems;
       }
     },
+    components: {
+      BaseButton,
+    }
   }
 </script>
 
@@ -124,20 +126,6 @@
         &:hover {
             background-color: #555555;
             color: #cccccc;
-        }
-    }
-
-    .basket__button {
-        display: flex;
-        justify-content: space-between;
-        background-color: #5eb8ff;
-        color: #ffffff;
-        padding: 14px 22px;
-        border-radius: 4px;
-        margin: 8px 0;
-        cursor: pointer;
-        &:hover {
-            background-color: #49a5ef;
         }
     }
 </style>

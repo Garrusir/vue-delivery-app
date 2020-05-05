@@ -26,12 +26,15 @@
 </script>
 
 <style lang="scss" scoped>
-   .wrapper {
+  .wrapper {
       width: 100%;
       display: flex;
       flex-flow: column nowrap;
     }
-
+  .label {
+      margin-bottom: 8px;
+      color: #555555;
+  }
   .input {
     display: inline-block;
     width: 100%;

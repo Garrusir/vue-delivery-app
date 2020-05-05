@@ -15,11 +15,11 @@
                 {{ dish.description }}
             </div>
             <div class="dish-item__order-row">
-                <div
-                class="basket__button dish-item__button"
-                @click="$store.dispatch('addItemToBasket', dish)">
-                    В корзину
-                </div>
+                <BaseButton
+                class="dish-item__button"
+                label="В корзину"
+                @click="$store.dispatch('addItemToBasket', dish)"
+                />
                 <div class="dish-item__price">{{ dish.price }}  ₽ </div>
             </div>
         </div>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import BaseButton from "./blocks/BaseButton";
+
   export default {
     name: "DishItem",
     props: {
@@ -35,6 +37,9 @@
         required: true,
       },
     },
+    components: {
+      BaseButton,
+    }
   }
 </script>
 
@@ -77,9 +82,11 @@
 
     .dish-item__button {
         margin-right: 18px;
+        flex-shrink: 1;
     }
 
     .dish-item__price {
         font-weight: bold;
+        flex-shrink: 0;
     }
 </style>

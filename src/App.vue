@@ -5,15 +5,20 @@
       <router-view/>
     </div>
     <FooterDude/>
+    <LoginForm
+    v-if="$store.getters.getLoginFormState"/>
   </div>
 </template>
 <script>
   import FooterDude from "./components/FooterDude";
   import HeaderDude from "./components/HeaderDude";
+  import LoginForm from "./components/LoginForm";
   export default {
+    name: 'MainLayout',
     components: {
       HeaderDude,
-      FooterDude
+      FooterDude,
+      LoginForm,
     }
   }
 

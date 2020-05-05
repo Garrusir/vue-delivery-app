@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import appState from './modules/appState'
 import vendorState from './modules/vendorState'
 import basketState from "./modules/basketState";
+import authorization from "./modules/authorization";
 
 Vue.use(Vuex)
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     appState,
     vendorState,
     basketState,
+    authorization,
   }
 })
