@@ -15,11 +15,16 @@ Vue.use(VueRouter)
     name: 'Vendor',
     component: () => import('../views/Vendor.vue'),
   },
-    {
-      path: '/checkout',
-      name: 'Order',
-      component: () => import('../views/Order.vue'),
-    },
+  {
+    path: '/checkout',
+    name: 'Order',
+    component: () => import('../views/Order.vue'),
+  },
+  {
+    path: '/registration',
+    name: 'Registration',
+    component: () => import('../views/Registration.vue'),
+  },
   // {
   //   path: '/about',
   //   name: 'About',

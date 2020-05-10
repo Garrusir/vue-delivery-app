@@ -1,7 +1,13 @@
 <template>
   <div class="wrapper">
      <label class="label" v-if="label" :for="label">{{ label }}</label>
-     <input class="input" :placeholder="placeholder" :id="label" :type="type" :value="value" @change="$emit('input')">
+     <input
+     class="input"
+     :placeholder="placeholder"
+     :id="label"
+     :type="type"
+     :value="value"
+     @change="$emit('input', $event.target.value)">
   </div>
 </template>
 

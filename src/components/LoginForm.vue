@@ -15,7 +15,9 @@
             type="password"
             class="main-form__input"/>
 
-            <button>Войти</button>
+            <BaseButton
+            @click="signIn">Войти</BaseButton>
+            <a @click="go('Registration')">Зарегестрироваться</a>
             <div
             @click="$store.commit('closeLoginForm')"
             class="main-form__icon">
@@ -29,13 +31,28 @@
 
 <script>
   import BaseInput from "./blocks/BaseInput";
+  import BaseButton from "./blocks/BaseButton";
 
   export default {
     name: "Login",
     components: {
       BaseInput,
+      BaseButton,
     },
-    props: {
+    methods: {
+      closeLoginForm() {
+        this.$store.commit('closeLoginForm');
+      },
+      go(page) {
+        this.closeLoginForm();
+        this.$router.push({name: page});
+      },
+      signIn() {
+        this.$store.dispatch('signIn', {
+          email: this.login,
+          password: this.password,
+        })
+      }
     },
     data: () => {
       return {

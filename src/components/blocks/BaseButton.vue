@@ -1,5 +1,9 @@
 <template>
-    <button class="btn" @click="$emit('click')">{{ label }}</button>
+    <button
+    class="btn"
+    @click="$emit('click')">
+        <slot>{{ label }}</slot>
+    </button>
 </template>
 
 <script>
@@ -7,7 +11,8 @@
     name: 'BaseInput',
     props: {
       label: {
-        type: String
+        type: String,
+        default: 'Отправить'
       }
     }
   }

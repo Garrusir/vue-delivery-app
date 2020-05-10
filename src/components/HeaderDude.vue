@@ -1,7 +1,9 @@
 <template>
     <div class="header">
         <div class="header-wrap">
-            <div class="header__logo">
+            <div
+            @click="$router.push('/')"
+            class="header__logo">
                 <img src="@/assets/logo.svg">
                 <span class="header__title">Название</span>
             </div>
