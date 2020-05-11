@@ -25,6 +25,11 @@ Vue.use(VueRouter)
     name: 'Registration',
     component: () => import('../views/Registration.vue'),
   },
+  {
+      path: '/history',
+      name: 'History',
+      component: () => import('../views/OrderHistory.vue'),
+  },
   // {
   //   path: '/about',
   //   name: 'About',

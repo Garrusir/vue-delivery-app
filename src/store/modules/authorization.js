@@ -46,6 +46,7 @@ export default{
       .then(data => {
         console.log('logged', data);
         commit('updateUser', data.user);
+        commit('closeLoginForm');
       })
       .catch(function(error) {
         const errorCode = error.code;

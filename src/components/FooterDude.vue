@@ -1,12 +1,12 @@
 <template>
     <div class="footer">
-        © 2020, ООО «Название», официальный сайт 
+        © 2020, ООО «Название», официальный сайт
     </div>
 </template>
 
 <script>
   export default {
-    name: 'HeaderDude',
+    name: 'FooterDude',
   }
 </script>
 

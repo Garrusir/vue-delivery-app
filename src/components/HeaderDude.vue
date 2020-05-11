@@ -20,6 +20,7 @@
 
             <div
             v-else
+            @click="$router.push('/history')"
             class="header__login">
                 <span class="header__icon material-icons">
                     person
