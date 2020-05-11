@@ -11,7 +11,9 @@
         class="basket__not-empty">
             <div class="basket__header">
                 <h1>Мой заказ</h1>
-                <button @click="$store.commit('clearAllBasket')"> Очистить </button>
+                <span
+                @click="$store.commit('clearAllBasket')"
+                class="basket__clear material-icons">delete</span>
             </div>
 
             <div class="basket__orderInfo">
@@ -78,6 +80,16 @@
         padding: 0 12px;
     }
 
+    .basket__header {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .basket__clear {
+        cursor: pointer;
+        font-size: 26px;
+    }
     .basket__item {
         display: flex;
         flex-flow: row nowrap;

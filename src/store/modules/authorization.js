@@ -8,6 +8,9 @@ export default{
   getters: {
     getLoginFormState(state) {
       return state.loginForm;
+    },
+    getUser(state) {
+      return state.user;
     }
   },
   mutations: {
@@ -17,6 +20,9 @@ export default{
     closeLoginForm(state) {
       state.loginForm = false;
     },
+    updateUser(state, user) {
+      state.user = user;
+    }
   },
   actions: {
     createUser(context, user) {
@@ -33,12 +39,13 @@ export default{
         console.log('error', error.message);
       })
     },
-    signIn(context, {email, password}) {
+    signIn({commit}, {email, password}) {
       firebase
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(data => {
         console.log('logged', data);
+        commit('updateUser', data.user);
       })
       .catch(function(error) {
         const errorCode = error.code;

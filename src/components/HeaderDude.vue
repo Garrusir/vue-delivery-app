@@ -7,13 +7,24 @@
                 <img src="@/assets/logo.svg">
                 <span class="header__title">Название</span>
             </div>
+
             <div
+            v-if="!$store.getters.getUser"
             @click="$store.commit('openLoginForm')"
             class="header__login">
                 <span class="header__icon material-icons">
                     person
                 </span>
                 <span class="header__text"> Войти </span>
+            </div>
+
+            <div
+            v-else
+            class="header__login">
+                <span class="header__icon material-icons">
+                    person
+                </span>
+            <span class="header__text"> Мой заказ </span>
             </div>
         </div>
         </div>
