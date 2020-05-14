@@ -4,7 +4,8 @@
     v-for="item in vendorList"
     :key="item.id"
     @click="go(item)"
-    :title="item.title"
+    :title="item.name"
+    :src="item.img"
     class="vendor-item"/>
   </div>
 </template>
@@ -12,6 +13,7 @@
 <script>
 // @ is an alias to /src
 import VendorItem from "../components/VendorItem";
+// import {db} from "../firebaseConfig";
 
 export default {
   name: 'Home',
@@ -19,6 +21,9 @@ export default {
     VendorItem,
   },
   created() {
+    this.$store.dispatch('updateVendors');
+    // const restaurants = db.collection('restaurants11').orderBy('createdAt');
+    // console.log('vendors', restaurants);
   },
   computed: {
     vendorList() {

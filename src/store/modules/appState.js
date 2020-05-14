@@ -1,23 +1,8 @@
+import {db} from "../../firebaseConfig";
+
 export default {
   state: {
-    vendors: [
-      {
-        id: 'kfc',
-        title: 'KFC',
-      },
-      {
-        id: 'burger_king',
-        title: 'Burger King',
-      },
-      {
-        id: 'mcdonalds',
-        title: 'Mcdonalds',
-      },
-      {
-        id: 'shokoladnica',
-        title: 'Шоколадница',
-      }
-    ],
+    vendors: [],
   },
   getters: {
     getVendors(state) {
@@ -25,7 +10,22 @@ export default {
     },
   },
   mutations: {
+    setVendors(state, data) {
+      state.vendors = data;
+    },
   },
   actions: {
+    updateVendors({commit}) {
+      db
+        .collection('restaurants')
+        .get()
+        .then(data => {
+          const vendors = [];
+          data.forEach(doc => {
+            vendors.push({id: doc.id, ...doc.data()});
+          })
+          commit("setVendors", vendors);
+        });
+    },
   },
 }

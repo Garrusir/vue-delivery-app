@@ -11,7 +11,7 @@ export default{
     },
     getUser(state) {
       return state.user;
-    }
+    },
   },
   mutations: {
     openLoginForm(state) {

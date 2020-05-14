@@ -1,6 +1,10 @@
 <template>
   <div class="vendor-page">
-    <div class="vendor-header">
+    <div
+    class="vendor-header"
+    :style="{
+      'background-image': `url(${vendor.img})`
+    }">
       <div class="vendor-header__blackout">
         <div class="vendor-header__wrap">
           <router-link
@@ -16,7 +20,7 @@
             </span>
           </router-link>
 
-          <div class="vendor-header__title"> {{  $route.params.id  }}</div>
+          <div class="vendor-header__title"> {{ vendor.name }}</div>
         </div>
       </div>
     </div>
@@ -57,20 +61,27 @@ export default {
     DishItem,
     BasketDude,
   },
+  created() {
+    this.$store.dispatch('updateVendor', this.$route.params.id);
+    this.$store.dispatch('updateDishes', this.$route.params.id);
+  },
   computed: {
     dishList() {
       return this.$store.getters.getDishes;
     },
+    vendor() {
+      return this.$store.getters.getCurrentVendor;
+    }
   }
 }
 </script>
 
 <style lang="scss">
   .vendor-header {
-    background-image: url("https://www.delivery-club.ru/naturmort/5ea337f3ba2c2_720x450.jpg");
     background-size: cover;
     background-position: center;
     height: 240px;
+    margin-right: 260px;
   }
 
   .vendor-header__blackout {

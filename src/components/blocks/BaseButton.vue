@@ -1,5 +1,9 @@
 <template>
     <button
+    :disabled="disabled"
+    :class="{
+      'btn--disabled': disabled
+    }"
     class="btn"
     @click="$emit('click')">
         <slot>{{ label }}</slot>
@@ -8,11 +12,15 @@
 
 <script>
   export default {
-    name: 'BaseInput',
+    name: 'BaseButton',
     props: {
       label: {
         type: String,
         default: 'Отправить'
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
       }
     }
   }
@@ -32,6 +40,13 @@
         width: 100%;
         &:hover {
             background-color: #49a5ef;
+        }
+    }
+    .btn--disabled {
+        background-color: #c8e7ff;
+        cursor: default;
+        &:hover {
+            background-color: #c8e7ff;
         }
     }
 </style>

@@ -1,6 +1,11 @@
+import {db} from "../../firebaseConfig";
+
 export default {
   state: {
     basketItems: [],
+    customerAddress: '',
+    customerPhone: '',
+
   },
   getters: {
     getBasketItems(state) {
@@ -17,6 +22,7 @@ export default {
         title: item.title,
         price: item.price,
         count: 1,
+        address: item.address,
       });
     },
     incrementItemCount(state, { id }) {
@@ -45,6 +51,21 @@ export default {
         commit('incrementItemCount', dish);
       }
 
+    },
+    createOrder({state, getters}, orderInfo) {
+      const newOrder = {
+        createdAt: new Date(),
+        customerAddress: orderInfo.address,
+        customerPhone: orderInfo.phone,
+        comment: orderInfo.comment,
+        userId: getters.getUser.uid,
+        status: 'created',
+        cart: state.basketItems,
+        price: getters.getTotalPrice,
+      }
+      db.collection('orders').add(newOrder).then(r => {
+        console.log('order created', r);
+      });
     }
   },
 }

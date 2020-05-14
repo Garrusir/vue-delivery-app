@@ -4,7 +4,7 @@
     class="dish-item">
         <div class="dish-item__img"
         :style="{
-        'background-image': dish.image ? `url(${dish.image})` : ''
+        'background-image': dish.img ? `url(${dish.img})` : ''
         }"/>
 
         <div class="dish-item__wrap">

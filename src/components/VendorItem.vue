@@ -4,7 +4,7 @@
     class="vendor-item">
         <a class="vendor-item__link">
             <div class="vendor-item__image">
-                <img alt="vendor picture" src="https://www.delivery-club.ru/naturmort/5a8555605a3de_480x300.jpg"/>
+                <img alt="vendor picture" :src="src"/>
             </div>
             <div class="vendor-item__wrap">
                 <div class="vendor-item__head">
@@ -21,6 +21,10 @@
     name: "VendorItem",
     props: {
       title: {
+        type: String,
+        required: true,
+      },
+      src: {
         type: String,
         required: true,
       }

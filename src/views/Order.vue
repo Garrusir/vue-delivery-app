@@ -9,28 +9,59 @@
     <div class="order-page__main">
       <div class="order-page__form">
         <h2>Доставка</h2>
-        <BaseInput label="Телефон для связи" value=" " type="text" class="order-page__input"/>
+        <BaseInput
+        v-model="phone"
+        label="Телефон для связи"
+        type="text"
+        class="order-page__input"/>
 
-        <BaseInput label="Адрес доставки" value=" " type="text" class="order-page__input"/>
+        <BaseInput
+        v-model="address"
+        label="Адрес доставки"
+        type="text"
+        class="order-page__input"/>
 
         <div class="order-page__input-row">
-          <BaseInput label="Подъезд" value=" " type="text" class="order-page__input"/>
+          <BaseInput
+          v-model="porch"
+          label="Подъезд"
+          type="text"
+          class="order-page__input"/>
 
-          <BaseInput label="Домофон" value=" " type="text" class="order-page__input"/>
+          <BaseInput
+          v-model="intercom"
+          label="Домофон"
+          type="text"
+          class="order-page__input"/>
 
-          <BaseInput label="Этаж" value=" " type="number" class="order-page__input"/>
+          <BaseInput
+          v-model="floor"
+          label="Этаж"
+          type="number"
+          class="order-page__input"/>
 
-          <BaseInput label="Квартира" value=" " type="number" class="order-page__input"/>
+          <BaseInput
+          v-model="room"
+          label="Квартира"
+          type="number"
+          class="order-page__input"/>
         </div>
 
         <div class="order-page__input">
           <label for="comment">Комментарий</label>
-          <textarea id="comment" type="text" resize="none"/>
+          <textarea
+          v-model="comment"
+          id="comment"
+          type="text"
+          resize="none"/>
         </div>
 
-        <BaseButton label="Заказать" />
+        <BaseButton
+        :disabled="!isLogged || isCartEmpty"
+        @click="allowOrder ? $store.dispatch('createOrder', orderInfo) : error = true"
+        label="Заказать" />
+        {{error}}
       </div>
-
       <div class="order-page__cart">
         <BasketDude
         hideOrderButton/>
@@ -53,6 +84,37 @@ export default {
     BaseButton
   },
   computed: {
+    fullAddress() {
+      return `${this.address}, подъезд ${this.porch}, домофон ${this.intercom}, этаж ${this.floor}, квартира ${this.room}`
+    },
+    orderInfo() {
+      return {
+        address: this.fullAddress,
+        phone: this.phone,
+        comment: this.comment
+      }
+    },
+    validAddress() {
+      return this.phone.length && this.address.length
+    },
+    isLogged() {
+      return this.$store.getters.getUser
+    },
+    isCartEmpty() {
+      return this.$store.getters.getBasketItems.length === 0;
+    }
+  },
+  data() {
+    return {
+      phone: '',
+      address: '',
+      porch: '',
+      intercom: '',
+      floor: '',
+      room: '',
+      comment: '',
+      error: false,
+    }
   }
 }
 </script>
