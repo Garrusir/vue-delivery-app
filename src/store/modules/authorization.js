@@ -12,6 +12,9 @@ export default{
     getUser(state) {
       return state.user;
     },
+    isAuthenticated(state) {
+      return !!state.user;
+    }
   },
   mutations: {
     openLoginForm(state) {
@@ -22,13 +25,11 @@ export default{
     },
     updateUser(state, user) {
       state.user = user;
+
     }
   },
   actions: {
     createUser(context, user) {
-      console.log(context);
-      console.log('user', user);
-      console.log('firebase', firebase)
       firebase
       .auth
       .createUserWithEmailAndPassword(user.email, user.password)

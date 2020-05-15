@@ -5,7 +5,7 @@ export default {
     basketItems: [],
     customerAddress: '',
     customerPhone: '',
-
+    vendor: '',
   },
   getters: {
     getBasketItems(state) {
@@ -13,6 +13,9 @@ export default {
     },
     getTotalPrice(state) {
       return state.basketItems.reduce((accumulator, currentDish) => accumulator + currentDish.price * currentDish.count, 0);
+    },
+    getBasketVendor(state) {
+      return state.vendor;
     }
   },
   mutations: {
@@ -38,12 +41,23 @@ export default {
     },
     clearAllBasket(state) {
       state.basketItems = [];
+    },
+    setBasketVendor(state, data) {
+      state.vendor = data;
     }
   },
   actions: {
-    addItemToBasket({state, commit}, dish) {
+    addItemToBasket({state, commit, getters}, dish) {
       // if (state.basketItems.indexOf())
       const basketItem = state.basketItems.find(item => item.id === dish.id );
+      const currentVendor = getters.getCurrentVendor;
+      const basketVendor = state.vendor;
+
+      if (currentVendor !== basketVendor) {
+        commit('setBasketVendor', currentVendor);
+        commit('clearAllBasket');
+      }
+
       if (!basketItem) {
         commit('pushToBasket', dish);
       } else {
@@ -60,6 +74,7 @@ export default {
         comment: orderInfo.comment,
         userId: getters.getUser.uid,
         status: 'created',
+        vendor: state.vendor,
         cart: state.basketItems,
         price: getters.getTotalPrice,
       }

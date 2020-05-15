@@ -11,13 +11,13 @@
         <h2>Доставка</h2>
         <BaseInput
         v-model="phone"
-        label="Телефон для связи"
+        label="Телефон для связи*"
         type="text"
         class="order-page__input"/>
 
         <BaseInput
         v-model="address"
-        label="Адрес доставки"
+        label="Адрес доставки*"
         type="text"
         class="order-page__input"/>
 
@@ -57,8 +57,8 @@
         </div>
 
         <BaseButton
-        :disabled="!isLogged || isCartEmpty"
-        @click="allowOrder ? $store.dispatch('createOrder', orderInfo) : error = true"
+        :disabled="isCartEmpty"
+        @click="isLogged ? createOrder() : $store.commit('openLoginForm')"
         label="Заказать" />
         {{error}}
       </div>
@@ -102,6 +102,11 @@ export default {
     },
     isCartEmpty() {
       return this.$store.getters.getBasketItems.length === 0;
+    }
+  },
+  methods: {
+    createOrder() {
+      this.$store.dispatch('createOrder', this.orderInfo);
     }
   },
   data() {

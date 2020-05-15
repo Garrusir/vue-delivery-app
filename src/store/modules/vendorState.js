@@ -17,11 +17,13 @@ export default {
   mutations: {
     setDishes(state, date) {
       state.dishes = date.map(item => {
-        item.address = state.currentVendor.address
+        item.address = state.currentVendor.address;
+        item.vendorId = state.currentVendor.id;
+        item.vendorName = state.currentVendor.name;
         return item;
       });
     },
-    setVendor(state, data) {
+    setCurrentVendor(state, data) {
       state.currentVendor = data;
     },
   },
@@ -44,7 +46,7 @@ export default {
         .get()
         .then(data => {
           console.log('data', data.data());
-          commit('setVendor', data.data());
+          commit('setCurrentVendor', data.data());
         });
     }
   },

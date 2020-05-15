@@ -17,6 +17,7 @@
             </div>
 
             <div class="basket__orderInfo">
+                <h3>{{ $store.getters.getBasketVendor.name }}</h3>
                 <div
                 v-for="item in basketItems"
                 :key="item.id"
@@ -67,6 +68,14 @@
     },
     components: {
       BaseButton,
+    },
+    watch: {
+      basketItems(value) {
+        if (value.length === 0) {
+          this.$router.go(-1);
+        }
+      }
+
     }
   }
 </script>

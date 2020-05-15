@@ -5,8 +5,8 @@
         v-for="order in orderList"
         :key="order.id"
         class="order-item">
-            <div class="order-item__date">{{ order.date }}</div>
-            <div class="order-item__vendor">{{ order.vendor }}</div>
+            <div class="order-item__date">{{ parseDate(order.createdAt) }}</div>
+            <div class="order-item__vendor">{{ order.vendor.name }}</div>
             <div class="order-item__price">{{ order.price }} ₽</div>
             <div class="order-item__status">{{ order.status }}</div>
         </div>
@@ -17,26 +17,39 @@
 
   export default {
     name: "OrderHistory",
+    created() {
+      this.$store.dispatch('updateOrderHistory');
+    },
     methods: {
+      parseDate(timestamp){
+        const date = timestamp.toDate();
+        const minutes = `${date.getMinutes()}`.padStart(2, '0');
+        const hours = `${date.getHours()}`.padStart(2, '0');
+        const day = `${date.getDate()}`.padStart(2, '0');
+        const month = `${date.getMonth() + 1}`.padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
+      }
     },
     computed: {
       orderList() {
-        return [
-          {
-            id: 1,
-            date: '11.05.2020',
-            vendor: 'KFC',
-            price: '200',
-            status: 'Доставлено',
-          },
-          {
-            id: 2,
-            date: '09.05.2020',
-            vendor: 'Шоколадница',
-            price: '1400',
-            status: 'Доставлено',
-          },
-        ]
+        return this.$store.getters.getOrderHistory;
+        // return [
+        //   {
+        //     id: 1,
+        //     date: '11.05.2020',
+        //     vendor: 'KFC',
+        //     price: '200',
+        //     status: 'Доставлено',
+        //   },
+        //   {
+        //     id: 2,
+        //     date: '09.05.2020',
+        //     vendor: 'Шоколадница',
+        //     price: '1400',
+        //     status: 'Доставлено',
+        //   },
+        // ]
       }
     },
   }
