@@ -16,8 +16,14 @@
             class="main-form__input"/>
 
             <BaseButton
-            @click="signIn">Войти</BaseButton>
-            <a @click="go('Registration')">Зарегестрироваться</a>
+            :loading="$store.getters.isLoading"
+            @click="signIn">
+                Войти
+            </BaseButton>
+
+            <span> У вас ещё нет аккаунта?
+                <a class="link" @click="go('Registration')">зарегестрироваться</a>
+            </span>
             <div
             @click="$store.commit('closeLoginForm')"
             class="main-form__icon">
@@ -32,6 +38,7 @@
 <script>
   import BaseInput from "./blocks/BaseInput";
   import BaseButton from "./blocks/BaseButton";
+
 
   export default {
     name: "Login",
@@ -78,6 +85,7 @@
         z-index: 100;
     }
     .main-form {
+        height: 340px;
         min-width: 200px;
         flex-basis: 100%;
         max-width: 400px;
@@ -95,5 +103,13 @@
         top: 10px;
         right: 10px;
         color: #828282;
+    }
+    .link {
+        text-decoration: underline;
+        color: #5c6bc0;
+        cursor: pointer;
+    }
+    .loader {
+        margin: 0 auto;
     }
 </style>

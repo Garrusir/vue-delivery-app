@@ -11,7 +11,7 @@
             <div
             v-if="!$store.getters.getUser"
             @click="$store.commit('openLoginForm')"
-            class="header__login">
+            class="header__login header__navigation">
                 <span class="header__icon material-icons">
                     person
                 </span>
@@ -20,12 +20,20 @@
 
             <div
             v-else
-            @click="$router.push('/history')"
-            class="header__login">
+            class="header__navigation">
+              <div
+              @click="$router.push('/history')"
+              class="header__login">
                 <span class="header__icon material-icons">
                     person
                 </span>
-            <span class="header__text"> Мой заказ </span>
+                <span class="header__text"> Мой заказ </span>
+              </div>
+              <div
+              @click="logout"
+              class="header__login">
+                  <span class="header__text"> Выйти </span>
+              </div>
             </div>
         </div>
         </div>
@@ -34,6 +42,12 @@
 <script>
   export default {
     name: 'HeaderDude',
+    methods: {
+        logout() {
+            this.$store.dispatch('signOut');
+            this.$router.push({name:'Home'});
+        }
+    }
   }
 </script>
 
@@ -70,6 +84,11 @@
         text-transform: uppercase;
         font-weight: bold;
         margin-left: 12px;
+    }
+
+    .header__navigation {
+        display: flex;
+        flex-flow: row nowrap;
     }
 
     .header__login {

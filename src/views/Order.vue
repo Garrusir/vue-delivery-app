@@ -6,13 +6,23 @@
       <h1>Оформление заказа</h1>
     </div>
 
+
     <div class="order-page__main">
-      <div class="order-page__form">
+      <div
+      v-if="isLoading"
+      class="order-page__loader">
+        <BaseLoader/>
+      </div>
+
+      <div
+      v-else
+      class="order-page__form">
         <h2>Доставка</h2>
         <BaseInput
         v-model="phone"
         label="Телефон для связи*"
         type="text"
+        maxLength="12"
         class="order-page__input"/>
 
         <BaseInput
@@ -57,10 +67,14 @@
         </div>
 
         <BaseButton
-        :disabled="isCartEmpty"
+        :disabled="isCartEmpty || !validAddress"
         @click="isLogged ? createOrder() : $store.commit('openLoginForm')"
         label="Заказать" />
-        {{error}}
+        <div
+        v-if="errorMessage"
+        class="errorMessage">
+          <span>{{ errorMessage }}</span>
+        </div>
       </div>
       <div class="order-page__cart">
         <BasketDude
@@ -75,13 +89,16 @@
 import BasketDude from "../components/BasketDude";
 import BaseInput from "../components/blocks/BaseInput";
 import BaseButton from "../components/blocks/BaseButton";
+import BaseLoader from "../components/blocks/BaseLoader";
+
 
 export default {
   name: 'OrderPage',
   components: {
     BasketDude,
     BaseInput,
-    BaseButton
+    BaseButton,
+    BaseLoader,
   },
   computed: {
     fullAddress() {
@@ -100,8 +117,16 @@ export default {
     isLogged() {
       return this.$store.getters.getUser
     },
+    isLoading() {
+      return this.$store.getters.isLoading
+    },
     isCartEmpty() {
       return this.$store.getters.getBasketItems.length === 0;
+    },
+    errorMessage() {
+      if (!this.phone) return 'Телефон обязателен для заполения';
+      if (!this.address) return 'Адрес обязателен для заполения';
+      return ''
     }
   },
   methods: {
@@ -199,5 +224,15 @@ export default {
 
   .order-page__cart {
     min-width: 300px;
+  }
+
+  .errorMessage {
+    text-align: center;
+    color: #ff5722;
+    margin: 8px;
+  }
+
+  .order-page__loader {
+    margin: 20px auto;
   }
 </style>

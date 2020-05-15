@@ -7,6 +7,7 @@
      :id="label"
      :type="type"
      :value="value"
+     :maxlength="maxLength"
      @change="$emit('input', $event.target.value)">
   </div>
 </template>
@@ -26,6 +27,9 @@
       },
       placeholder: {
         type: String
+      },
+      maxLength: {
+        type: [String, Number]
       }
     }
   }

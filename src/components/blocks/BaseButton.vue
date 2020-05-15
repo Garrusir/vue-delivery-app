@@ -1,16 +1,26 @@
 <template>
-    <button
-    :disabled="disabled"
-    :class="{
-      'btn--disabled': disabled
-    }"
-    class="btn"
-    @click="$emit('click')">
-        <slot>{{ label }}</slot>
-    </button>
+    <div>
+        <div
+        v-if="loading"
+        class="btn btn-loader">
+          <img src="@/assets/circles_white.svg" />
+        </div>
+
+        <button
+        v-else
+        :disabled="disabled"
+        :class="{
+          'btn--disabled': disabled
+        }"
+        class="btn"
+        @click="$emit('click')">
+            <slot>{{ label }}</slot>
+        </button>
+    </div>
 </template>
 
 <script>
+
   export default {
     name: 'BaseButton',
     props: {
@@ -19,6 +29,10 @@
         default: 'Отправить'
       },
       disabled: {
+        type: Boolean,
+        default: false,
+      },
+      loading: {
         type: Boolean,
         default: false,
       }
@@ -38,6 +52,7 @@
         text-align: center;
         font-size: 14px;
         width: 100%;
+        height: 42px;
         &:hover {
             background-color: #49a5ef;
         }
@@ -48,5 +63,18 @@
         &:hover {
             background-color: #c8e7ff;
         }
+    }
+    .btn-loader {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        cursor: default;
+        &:hover {
+            background-color: #5eb8ff;
+        }
+    }
+    .btn-loader img{
+        height: 24px;
     }
 </style>

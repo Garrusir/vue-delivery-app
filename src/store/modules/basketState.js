@@ -1,4 +1,5 @@
 import {db} from "../../firebaseConfig";
+import router from '@/router'
 
 export default {
   state: {
@@ -66,7 +67,8 @@ export default {
       }
 
     },
-    createOrder({state, getters}, orderInfo) {
+    createOrder({state, commit, getters}, orderInfo) {
+      commit('setLoading', true);
       const newOrder = {
         createdAt: new Date(),
         customerAddress: orderInfo.address,
@@ -80,6 +82,8 @@ export default {
       }
       db.collection('orders').add(newOrder).then(r => {
         console.log('order created', r);
+        commit('setLoading', false);
+        router.push({name: 'History'});
       });
     }
   },

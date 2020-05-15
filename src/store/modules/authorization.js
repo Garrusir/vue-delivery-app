@@ -1,4 +1,5 @@
 const firebase = require('@/firebaseConfig.js');
+import router from '@/router'
 
 export default{
   state: {
@@ -24,23 +25,32 @@ export default{
       state.loginForm = false;
     },
     updateUser(state, user) {
-      state.user = user;
-
-    }
+      if (user) {
+        state.user = user;
+        localStorage.userId =user.uid;
+      } else {
+        state.user = null;
+        localStorage.removeItem('userId');
+      }
+    },
   },
   actions: {
-    createUser(context, user) {
+    createUser({commit}, user) {
+      commit('setLoading', true);
       firebase
       .auth
       .createUserWithEmailAndPassword(user.email, user.password)
       .then(data => {
+        commit('setLoading', false);
         console.log('data', data);
       })
       .catch(error => {
+        commit('setLoading', false);
         console.log('error', error.message);
       })
     },
     signIn({commit}, {email, password}) {
+      commit('setLoading', true);
       firebase
       .auth
       .signInWithEmailAndPassword(email, password)
@@ -48,12 +58,22 @@ export default{
         console.log('logged', data);
         commit('updateUser', data.user);
         commit('closeLoginForm');
+        commit('setLoading', false);
       })
       .catch(function(error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        commit('setLoading', false);
       });
+    },
+    signOut({commit}) {
+      console.log('logout');
+      firebase
+        .auth
+        .signOut();
+      commit('updateUser', null);
+      router.push({name: 'Home'});
     }
   },
   modules: {

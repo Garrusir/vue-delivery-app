@@ -36,6 +36,7 @@
             class="main-form__input"/>
 
             <BaseButton
+            :loading="$store.getters.isLoading"
             @click="submit"
             class="registration__button">Зарегестрироваться</BaseButton>
 

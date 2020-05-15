@@ -21,6 +21,9 @@
       LoginForm,
     },
     created() {
+      if (localStorage.userId) {
+        this.$store.commit('updateUser', {uid: localStorage.userId})
+      }
       // console.log('firebase', firebase);
       // console.log('firebase', this.$firebase);
     }
