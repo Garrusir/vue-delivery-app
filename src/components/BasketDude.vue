@@ -2,7 +2,8 @@
     <div class="basket__container">
         <div
         v-if="$store.getters.getTotalPrice === 0"
-        class="basket__empty">
+        class="basket__empty"
+        >
             <span>В корзине пока пусто</span>
         </div>
 
@@ -12,12 +13,13 @@
             <div class="basket__header">
                 <h1>Мой заказ</h1>
                 <span
+                id='clear'
                 @click="$store.commit('clearAllBasket')"
                 class="basket__clear material-icons">delete</span>
             </div>
 
             <div class="basket__orderInfo">
-                <h3>{{ $store.getters.getBasketVendor.name }}</h3>
+                <h3 id='vendorName'>{{ $store.getters.getBasketVendor.name }}</h3>
                 <div
                 v-for="item in basketItems"
                 :key="item.id"
@@ -29,10 +31,12 @@
                     </div>
                     <div class="basket__count">
                         <div
+                        id='decrement'
                         @click="$store.commit('decrementItemCount', item)"
                         class="basket__icon"> - </div>
                         <div> {{ item.count }} </div>
                         <div
+                        id='increment'
                         @click="$store.commit('incrementItemCount', item)"
                         class="basket__icon"> + </div>
                     </div>
@@ -42,6 +46,7 @@
                 </div>
             </div>
             <BaseButton
+               id='checkout'
                v-if="!hideOrderButton"
                :label="`Заказать ${ $store.getters.getTotalPrice} ₽ `"
                @click="$router.push('/checkout')"
