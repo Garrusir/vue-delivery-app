@@ -1,28 +1,31 @@
 <template>
     <div
+    id='popUp'
     @click.self="$store.commit('closeLoginForm')"
     class="popup-layout">
         <div class="main-form">
             <BaseInput
+            id="login"
             v-model="login"
             label="Логин"
             type="text"
             class="main-form__input"/>
 
             <BaseInput
+            id="password"
             v-model="password"
             label="Пароль"
             type="password"
             class="main-form__input"/>
 
             <BaseButton
+            ref="sign"
             :loading="$store.getters.isLoading"
-            @click="signIn">
+            @click.native="signIn()">
                 Войти
             </BaseButton>
-
             <span> У вас ещё нет аккаунта?
-                <a class="link" @click="go('Registration')">зарегестрироваться</a>
+                <a class="link" id='reg' @click="go('Registration')">Зарегистрироваться</a>
             </span>
             <div
             @click="$store.commit('closeLoginForm')"
