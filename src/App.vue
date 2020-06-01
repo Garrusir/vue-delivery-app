@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <HeaderDude/>
+
     <div class="layout__content">
       <router-view/>
     </div>
+
     <FooterDude/>
+
     <LoginForm
     v-if="$store.getters.getLoginFormState"/>
   </div>

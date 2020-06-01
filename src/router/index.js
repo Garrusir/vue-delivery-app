@@ -31,6 +31,22 @@ Vue.use(VueRouter)
       name: 'History',
       component: () => import('../views/OrderHistory.vue'),
   },
+  {
+      path: '/admin',
+      name: 'Admin',
+      component: () => import('../views/Admin/index.vue'),
+      // children: [
+      //   {
+      //     path: ':id',
+      //     component: () => import('../views/Admin/AdminEditItem.vue')
+      //   },
+      // ]
+  },
+  {
+    path: '/admin/:id',
+    name: 'EditDish',
+    component: () => import('../views/Admin/AdminEditItem.vue'),
+  },
   // {
   //   path: '/about',
   //   name: 'About',

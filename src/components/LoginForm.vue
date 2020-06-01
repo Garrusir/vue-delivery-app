@@ -8,7 +8,7 @@
             id="login"
             v-model="login"
             label="Логин"
-            type="text"
+            type="email"
             class="main-form__input"/>
 
             <BaseInput
@@ -20,12 +20,17 @@
 
             <BaseButton
             ref="sign"
+            :disabled="!!errors.length"
             :loading="$store.getters.isLoading"
             @click.native="signIn()">
                 Войти
             </BaseButton>
             <span> У вас ещё нет аккаунта?
                 <a class="link" id='reg' @click="go('Registration')">Зарегистрироваться</a>
+            </span>
+            <span>
+                {{ errorMessage }}
+                {{ authError }}
             </span>
             <div
             @click="$store.commit('closeLoginForm')"
@@ -49,6 +54,17 @@
       BaseInput,
       BaseButton,
     },
+    computed: {
+      errors() {
+        const errors = [];
+         if (this.login.length === 0) errors.push('Поле логин обязательно для заполенения');
+         if (this.password.length === 0) errors.push('Поле пароль обязательно для заполенения');
+        return errors;
+      },
+      authError() {
+        return this.$store.getters.getAuthError;
+      }
+    },
     methods: {
       closeLoginForm() {
         this.$store.commit('closeLoginForm');
@@ -68,6 +84,8 @@
       return {
         login: '',
         password: '',
+        errorMessage: '',
+        isDirty: false,
       }
     }
   }

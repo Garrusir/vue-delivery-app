@@ -5,6 +5,8 @@ export default{
   state: {
     loginForm: false,
     user: null,
+    error: null,
+    registrationError: null,
   },
   getters: {
     getLoginFormState(state) {
@@ -12,6 +14,12 @@ export default{
     },
     getUser(state) {
       return state.user;
+    },
+    getAuthError(state) {
+      return state.error;
+    },
+    getRegistrationError(state) {
+      return state.registrationError;
     },
     isAuthenticated(state) {
       return !!state.user;
@@ -33,6 +41,22 @@ export default{
         localStorage.removeItem('userId');
       }
     },
+    setError(state, errorCode) {
+      const errorMessages = {
+        'auth/invalid-email': 'Неверный формат email',
+        'auth/user-not-found': 'Пользователь не найден',
+        'auth/wrong-password': 'Неверный пароль',
+      }
+
+      state.error = errorMessages[errorCode] || 'Неизвестная ошибка';
+    },
+    setRegistrationError(state, {errorCode, email}) {
+      const errorMessages = {
+        'auth/email-already-in-use': `Адрес ${email} уже занят`,
+      }
+
+      state.registrationError = errorMessages[errorCode] || 'Неизвестная ошибка';
+    }
   },
   actions: {
     createUser({commit}, user) {
@@ -40,13 +64,16 @@ export default{
       firebase
       .auth
       .createUserWithEmailAndPassword(user.email, user.password)
-      .then(data => {
-        commit('setLoading', false);
-        console.log('data', data);
-      })
       .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('error', error);
+        console.log('user', user);
+        console.log(errorCode, errorMessage);
+        commit('setRegistrationError', {errorCode, email: user.email});
+      })
+      .finally(() => {
         commit('setLoading', false);
-        console.log('error', error.message);
       })
     },
     signIn({commit}, {email, password}) {
@@ -64,6 +91,7 @@ export default{
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        commit('setError', errorCode);
         commit('setLoading', false);
       });
     },

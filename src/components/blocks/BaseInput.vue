@@ -8,7 +8,8 @@
      :type="type"
      :value="value"
      :maxlength="maxLength"
-     @change="$emit('input', $event.target.value)">
+     @input="$emit('input', $event.target.value)"
+     @change="$emit('change',$event.target.value)">
   </div>
 </template>
 
@@ -31,6 +32,8 @@
       maxLength: {
         type: [String, Number]
       }
+    },
+    methods: {
     }
   }
 </script>

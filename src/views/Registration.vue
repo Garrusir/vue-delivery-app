@@ -16,6 +16,12 @@
             type="email"
             class="main-form__input"/>
 
+            <span
+            v-if="emailError"
+            class="main-form__error">
+                {{ emailError }}
+            </span>
+
 <!--             <BaseInput
             v-model="phone"
             label="Телефон"
@@ -28,6 +34,11 @@
             type="password"
             class="main-form__input"/>
 
+            <span
+            v-if="passwordError"
+            class="main-form__error">
+                {{ passwordError }}
+            </span>
 
             <BaseInput
             v-model="passwordRepeat"
@@ -35,10 +46,23 @@
             type="password"
             class="main-form__input"/>
 
+            <span
+            v-if="passwordRepeatError"
+            class="main-form__error">
+                {{ passwordRepeatError }}
+            </span>
+
             <BaseButton
+            :disabled="!validForm"
             :loading="$store.getters.isLoading"
             @click="submit"
             class="registration__button">Зарегестрироваться</BaseButton>
+
+            <span
+            v-if="registrationError"
+            class="main-form__error">
+                {{ registrationError }}
+            </span>
 
         </div>
     </div>
@@ -62,7 +86,50 @@
             email: this.email,
             password: this.password
         })
+        .then(data => {
+          if (data.user) {
+            console.log('created', data.user);
+          }
+          console.log('data', data);
+        })
+        .catch(error => {
+          console.log('registration error', error);
+        })
+      },
+    },
+    computed: {
+      validEmail() {
+        // const pattern =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const pattern =/.+@.+\..+/;
+        return pattern.test(String(this.email).toLowerCase());
+      },
+      validForm() {
+        return this.email
+          && this.password
+          && this.passwordRepeat
+          && !this.emailError
+          && !this.passwordError
+          && !this.passwordRepeatError;
+      },
+      emailError() {
+        if ( this.email.length === 0) return null;
+
+        return this.validEmail? '' : 'Неверный формат email'
+      },
+      passwordError() {
+        if ( this.password.length === 0) return null;
+        if (this.password.length < 8) return 'Пароль должен содержать не менее 8 символов';
+        return null;
+      },
+      passwordRepeatError() {
+        if (this.passwordRepeat.length === 0) return null;
+        if (this.password !== this.passwordRepeat) return 'Пароли не совпадают';
+        return null;
+      },
+      registrationError() {
+        return this.$store.getters.getRegistrationError;
       }
+
     },
     data: () => {
       return {
@@ -82,5 +149,13 @@
     }
     .registration__button {
         margin-top: 24px;
+    }
+    .main-form__error {
+        font-size: 14px;
+        color: #ff4343;
+    }
+
+    .main-form__input {
+        margin-top: 14px;
     }
 </style>
