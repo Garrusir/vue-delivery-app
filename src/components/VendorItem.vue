@@ -3,9 +3,9 @@
     @click="$emit('click')"
     class="vendor-item">
         <a class="vendor-item__link">
-            <div class="vendor-item__image">
-                <img alt="vendor picture" :src="src"/>
-            </div>
+            <div class="vendor-item__image" :style="{
+                'background-image': src ? `url(${src})` : ''
+                }"/>
             <div class="vendor-item__wrap">
                 <div class="vendor-item__head">
                     {{ title }}
@@ -61,7 +61,11 @@
          font-weight: 700;
      }
  }
- .vendor-item__image img {
+ .vendor-item__image {
+     background-repeat: no-repeat;
+     background-size: cover;
+     background-position: center center;
      width: 100%;
+     min-height: 300px;
  }
 </style>
