@@ -59,7 +59,7 @@ export default{
     }
   },
   actions: {
-    createUser({commit}, user) {
+    createUser({commit, dispatch}, user) {
       commit('setLoading', true);
       firebase
       .auth
@@ -74,6 +74,10 @@ export default{
       })
       .finally(() => {
         commit('setLoading', false);
+        dispatch('signIn', {
+          email: user.email,
+          password: user.password
+        })
       })
     },
     signIn({commit}, {email, password}) {

@@ -8,7 +8,7 @@
             <div class="order-item__date">{{ parseDate(order.createdAt) }}</div>
             <div class="order-item__vendor">{{ order.vendor.name }}</div>
             <div class="order-item__price">{{ order.price }} ₽</div>
-            <div class="order-item__status">{{ order.status }}</div>
+            <div class="order-item__status">{{ orderStatus(order.status) }}</div>
         </div>
     </div>
 </template>
@@ -29,6 +29,14 @@
         const month = `${date.getMonth() + 1}`.padStart(2, '0');
         const year = date.getFullYear();
         return `${day}.${month}.${year} ${hours}:${minutes}`;
+      },
+      orderStatus(status) {
+        return new Map([
+          ['created', 'Заказ обрабатывается'],
+          ['taken', 'Заказ передан курьеру'],
+          ['done', 'Заказ доставлен'],
+          ['cancelled', 'Заказ отменен']
+        ]).get(status)
       }
     },
     computed: {

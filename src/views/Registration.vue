@@ -86,11 +86,10 @@
             email: this.email,
             password: this.password
         })
-        .then(data => {
-          if (data.user) {
-            console.log('created', data.user);
-          }
-          console.log('data', data);
+        .then(() => {
+          this.$router.push({
+            name: 'Home',
+          })
         })
         .catch(error => {
           console.log('registration error', error);
