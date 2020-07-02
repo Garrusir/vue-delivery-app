@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import _ from 'lodash';
+
+Vue.prototype.$lodash = _;
+
 const fb = require('./firebaseConfig.js');
 
 Vue.config.productionTip = false

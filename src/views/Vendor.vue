@@ -38,7 +38,10 @@
         <div class="vendor-info">
           <h2> Информация </h2>
           <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquid atque consectetur cum cupiditate delectus dolor earum error eveniet exercitationem, explicabo, fuga illo magni maiores minima molestiae molestias nisi non numquam obcaecati odio officia praesentium quaerat qui quia quibusdam ratione reiciendis rem sit tempora, ut veniam vero? Fugiat, perferendis.
+         {{vendor.description}}
+          </p>
+          <p>
+            Телефон: {{vendor.phone}}
           </p>
         </div>
       </div>
