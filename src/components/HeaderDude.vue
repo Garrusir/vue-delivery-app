@@ -21,7 +21,17 @@
             <div
             v-else
             class="header__navigation">
+            <div
+              v-if="user.role === 1"
+              @click="$router.push(`/admin/${user.restaurant}`)"
+              class="header__login">
+                <span class="header__icon material-icons">
+                    person
+                </span>
+                <span class="header__text"> Администрация ресторана </span>
+              </div>
               <div
+              v-if="user.role === 2"
               @click="$router.push('/history')"
               class="header__login">
                 <span class="header__icon material-icons">
@@ -46,6 +56,14 @@
         logout() {
             this.$store.dispatch('signOut');
             this.$router.push({name:'Home'});
+        }
+    },
+    created() {
+        this.user && this.$store.dispatch('findRole', this.user)
+    },
+    computed: {
+        user() {
+            return this.$store.getters.getUser;
         }
     }
   }

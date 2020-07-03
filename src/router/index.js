@@ -32,8 +32,11 @@ Vue.use(VueRouter)
       component: () => import('../views/OrderHistory.vue'),
   },
   {
-      path: '/admin',
+      path: '/admin/:resId',
       name: 'Admin',
+      meta: {
+        role: 1,
+      },
       component: () => import('../views/Admin/index.vue'),
       // children: [
       //   {
@@ -43,9 +46,20 @@ Vue.use(VueRouter)
       // ]
   },
   {
-    path: '/admin/:id',
+    path: '/admin/:resId/:id',
     name: 'EditDish',
+    meta: {
+      role: 1,
+    },
     component: () => import('../views/Admin/AdminEditItem.vue'),
+  },
+  {
+    path: '/admin/:resId/edit',
+    name: 'EditVendor',
+    meta: {
+      role: 1,
+    },
+    component: () => import('../views/Admin/AdminEditVendor.vue'),
   },
   // {
   //   path: '/about',
@@ -61,8 +75,15 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(to)
   if (to.name === 'History' && !store.getters.isAuthenticated) next({ name: 'Home' })
-  else next()
+  // else next()
+
+  else if (to.meta.role && store.getters.getUser && store.getters.getUser.role  !== to.meta.role) next({ name: 'Home' })
+  // else next()
+
+  else if (to.params.resId && !store.getters.getUser) next({ name: 'Home' })  
+  else next()  
 })
 
 export default router
