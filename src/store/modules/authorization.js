@@ -1,4 +1,5 @@
 const firebase = require('@/firebaseConfig.js');
+import {db} from "../../firebaseConfig";
 import router from '@/router'
 
 export default{
@@ -80,16 +81,25 @@ export default{
         })
       })
     },
-    signIn({commit}, {email, password}) {
+    findRole({commit}, user) {
+      return db
+      .collection('users')
+      .doc(user.uid)
+      .get()
+      .then(data => {
+        commit('updateUser', {...user, ...data.data()});
+        commit('closeLoginForm');
+        commit('setLoading', false);
+      })
+    },
+    signIn({commit, dispatch}, {email, password}) {
       commit('setLoading', true);
       firebase
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(data => {
         console.log('logged', data);
-        commit('updateUser', data.user);
-        commit('closeLoginForm');
-        commit('setLoading', false);
+        dispatch('findRole', data.user);
       })
       .catch(function(error) {
         const errorCode = error.code;

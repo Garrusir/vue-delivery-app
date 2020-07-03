@@ -4,6 +4,8 @@ export default {
   state: {
     dishes: [],
     currentVendor: {},
+    editedDish: null,
+    // isFetched: false,
   },
   getters: {
     getDishes(state) {
@@ -12,7 +14,13 @@ export default {
     getCurrentVendor(state) {
       // return state.vendors.find(vendor => vendor.id === id)
       return state.currentVendor;
-    }
+    },
+    getEditedDish(state) {
+      return state.editedDish;
+    },
+/*    getIsFetched(state) {
+      return state.isFetched;
+    }*/
   },
   mutations: {
     setDishes(state, date) {
@@ -26,6 +34,12 @@ export default {
     setCurrentVendor(state, data) {
       state.currentVendor = data;
     },
+    setEditedDish(state, data) {
+      state.editedDish = data;
+    },
+/*    setIsFetched(state, data) {
+      state.isFetched = data;
+    }*/
   },
   actions: {
     updateDishes({commit}, id) {
@@ -40,7 +54,21 @@ export default {
         commit("setDishes", menuItems);
         });
     },
+    updateDish( {commit}, {resId, id}) {
+      console.log(resId, id);
+      return db
+      .doc(`restaurants/${resId}`)
+      .collection('menu')
+      .doc(id)
+      .get()
+      .then((res) => {
+        console.log(res.data());
+        commit('setEditedDish', res.data())
+      })
+      
+    },
     updateVendor({commit}, id) {
+      // console.log(id);
       db
         .doc(`restaurants/${id}`)
         .get()
