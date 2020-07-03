@@ -15,7 +15,7 @@
     <div class="admin-info">
       <h2> Информация </h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquid atque consectetur cum cupiditate delectus dolor earum error eveniet exercitationem, explicabo, fuga illo magni maiores minima molestiae molestias nisi non numquam obcaecati odio officia praesentium quaerat qui quia quibusdam ratione reiciendis rem sit tempora, ut veniam vero? Fugiat, perferendis.
+        {{ vendor.description }}
       </p>
       <BaseButton
       class="admin-info__button"
@@ -52,8 +52,8 @@ export default {
     BaseButton,
   },
   created() {
-    this.$store.dispatch('updateVendor', '9ikeE3Xs4YZzMfQWEfYs');
-    this.$store.dispatch('updateDishes', '9ikeE3Xs4YZzMfQWEfYs');
+    this.$store.dispatch('updateVendor', this.restaurant);
+    this.$store.dispatch('updateDishes', this.restaurant);
   },
   computed: {
     dishList() {
@@ -61,6 +61,17 @@ export default {
     },
     vendor() {
       return this.$store.getters.getCurrentVendor;
+    },
+    restaurant() {
+      return this.$store.getters.getUser.restaurant
+    }
+  },
+  methods: {
+    go() {
+      this.$router.push({
+        name: 'EditVendor',
+        resId: this.restaurant,
+      })
     }
   }
 }

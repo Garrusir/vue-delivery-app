@@ -10,13 +10,13 @@
           <router-link
           tag="a"
           class="admin-header__link"
-          to="/admin">
+          :to="{ name: 'Admin', params: { resId: $route.params.resId } }">
             <i class="material-icons admin-header__icon">
               keyboard_arrow_left
             </i>
 
             <span>
-              Назад
+              Все рестораны
             </span>
           </router-link>
 
@@ -41,14 +41,24 @@
       class="main-form__input"/>
 
       <BaseInput
-      v-model="price"
+      v-model="photo"
       label="Фото заведения"
+      type="text"
+      class="main-form__input"/>
+
+      <BaseInput
+      v-model="phone"
+      label="Телефон заведения"
       type="text"
       class="main-form__input"/>
 
       <BaseButton
       :loading="$store.getters.isLoading"
-      class="registration__button">Сохранить изменения</BaseButton>
+      class="registration__button"
+      @click="editVendor"
+      >
+        Сохранить изменения
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -65,28 +75,42 @@ export default {
     BaseButton,
   },
   created() {
-    this.$store.dispatch('updateVendor', '9ikeE3Xs4YZzMfQWEfYs');
-    this.$store.dispatch('updateDishes', '9ikeE3Xs4YZzMfQWEfYs');
+    this.$store.dispatch('updateVendor', this.$route.params.resId);
+    this.name = this.vendor.name;
+    this.description = this.vendor.description;
+    this.photo = this.vendor.img;
+    this.phone = this.vendor.phone;
   },
   computed: {
-    dishList() {
-      return this.$store.getters.getDishes;
-    },
     vendor() {
       return this.$store.getters.getCurrentVendor;
     }
   },
   data: () => {
     return {
-      name: 'Имя товара',
-      description: 'Описание товара',
-      price: '300',
+      name: 'Название',
+      description: 'Описание',
+      photo: 'Фото',
+      phone: '+7'
+    }
+  },
+  methods: {
+    editVendor() {
+      this.$store.dispatch('editVendorInfo', {
+        id: this.$route.params.resId,
+        vendor: {
+          name: this.name,
+          description: this.description,
+          photo: this.photo,
+          phone: this.phone
+        }
+      })
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .admin-header {
     background-size: cover;
     background-position: center;
@@ -125,6 +149,7 @@ export default {
   }
 
   .admin-menu-container {
+    margin: 20px 0;
     display: flex;
     flex-flow: column nowrap;
   }
@@ -134,36 +159,9 @@ export default {
     flex-flow: row wrap;
   }
 
-  .admin-menu__dish {
-    min-width: 240px;
-    width: calc(100% / 3 - 11px);
-    overflow: hidden;
-    flex-grow: 1;
-    margin-bottom: 16px;
-    margin-right: 16px;
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
-  }
-
   .admin-menu__main {
     flex-grow: 1;
     flex-shrink: 1;
-  }
-
-  .admin-menu__basket {
-    display: flex;
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 300px;
-    margin-left: 18px;
-    position: fixed;
-    top: 70px;
-    right: 0;
-    background-color: #fff;
-    height: 100%;
-    box-shadow: 0 0px 8px 0 rgba(0,0,0,.04),
-                0 0px 8px 0 rgba(0,0,0,.04)
   }
 
   .admin-info p{

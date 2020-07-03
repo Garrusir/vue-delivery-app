@@ -42,7 +42,13 @@
     },
     methods: {
       go(item) {
-        this.$router.push(`admin/${item.id}`)
+        this.$router.push({
+            name: 'EditDish',
+            params: {
+                resId: this.$route.params.resId,
+                id: item.id
+            }
+        })
       }
     }
   }
