@@ -88,7 +88,7 @@ export default {
   created() {
     this.$store.dispatch('updateVendor', this.$route.params.resId);
     this.$store.dispatch('updateDish', {
-      resId: this.$route.params.resId, 
+      resId: this.$route.params.resId,
       id: this.$route.params.id
     });
   },
@@ -122,7 +122,7 @@ export default {
   methods: {
     editDish() {
       this.$store.dispatch('editDish', {
-        resId: this.$route.params.resId, 
+        resId: this.$route.params.resId,
         item: {
           id: this.$route.params.id,
           title: this.name,
@@ -187,13 +187,12 @@ export default {
 
   .admin-menu__dish {
     min-width: 240px;
-    width: calc(100% / 3 - 11px);
+    width: calc(100% / 3 - 16px);
     overflow: hidden;
     flex-grow: 1;
     margin-bottom: 16px;
     margin-right: 16px;
     &:nth-child(3n) {
-      margin-right: 0;
     }
   }
 

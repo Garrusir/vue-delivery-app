@@ -36,7 +36,7 @@
  .vendor-item {
      overflow: hidden;
      cursor: pointer;
-     width: calc(100% / 3 - 11px);
+     width: calc(100% / 3 - 16px);
      border-radius: 4px;
      margin-right: 16px;
      margin-bottom: 24px;

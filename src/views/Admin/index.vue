@@ -127,13 +127,13 @@ export default {
 
   .admin-menu__dish {
     min-width: 240px;
-    width: calc(100% / 3 - 11px);
+    width: calc(100% / 3 - 16px);
     overflow: hidden;
     flex-grow: 1;
     margin-bottom: 16px;
     margin-right: 16px;
     &:nth-child(3n) {
-      margin-right: 0;
+
     }
   }
 

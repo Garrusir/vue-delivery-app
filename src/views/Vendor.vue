@@ -145,13 +145,13 @@ export default {
 
   .vendor-menu__dish {
     min-width: 240px;
-    width: calc(100% / 3 - 11px);
+    width: calc(100% / 3 - 16px);
     overflow: hidden;
     flex-grow: 1;
     margin-bottom: 16px;
     margin-right: 16px;
     &:nth-child(3n) {
-      margin-right: 0;
+
     }
   }
 
@@ -186,8 +186,13 @@ export default {
     position: fixed;
     width: 100%;
     bottom: 10px;
+    left: 0;
     box-sizing: border-box;
     padding: 0 8px;
+    button {
+      box-shadow: 0 8px 8px 0 rgba(0,0,0,.18),
+      0 -2px 8px 0 rgba(0,0,0,.04);
+    }
 
   }
   .vendor-menu__basket--show {

@@ -44,6 +44,5 @@ export default {
     flex-flow: row wrap;
   }
   .vendor-item:nth-child(3n) {
-    margin-right: 0;
   }
 </style>

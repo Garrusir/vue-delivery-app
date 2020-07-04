@@ -4,8 +4,7 @@
             <div
             @click="$router.push({name: 'Home'}).catch(err => {})"
             class="header__logo">
-                <img src="@/assets/logo.svg">
-                <span class="header__title">Название</span>
+                <span class="header__title">Самовар</span>
             </div>
 
             <div
