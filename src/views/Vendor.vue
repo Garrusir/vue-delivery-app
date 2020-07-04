@@ -26,7 +26,7 @@
     </div>
 
     <div class="vendor-menu-container">
-      <div class="vendor-menu__main">
+      <div class="vendor-menu__main" @click="showMobileBasket = false">
         <h1> Меню </h1>
         <div class="vendor-menu">
           <DishItem
@@ -46,9 +46,16 @@
         </div>
       </div>
 
-      <div class="vendor-menu__basket">
+      <div class="vendor-menu__basket"
+      :class="{
+        'vendor-menu__basket--show' : showMobileBasket
+      }">
         <BasketDude/>
       </div>
+
+      <BaseButton
+      v-if="basket"
+      class="vendor-menu__mobile-button" @click="showMobileBasket = true"> Перейти к корзине </BaseButton>
     </div>
   </div>
 </template>
@@ -57,12 +64,14 @@
 // @ is an alias to /src
 import DishItem from "../components/DishItem";
 import BasketDude from "../components/BasketDude";
+import BaseButton from "../components/blocks/BaseButton";
 
 export default {
   name: 'Vendor',
   components: {
     DishItem,
     BasketDude,
+    BaseButton
   },
   created() {
     this.$store.dispatch('updateVendor', this.$route.params.id);
@@ -74,8 +83,14 @@ export default {
     },
     vendor() {
       return this.$store.getters.getCurrentVendor;
+    },
+    basket() {
+      return this.$store.getters.getBasketItems.length
     }
-  }
+  },
+  data: () => ({
+    showMobileBasket: false
+  })
 }
 </script>
 
@@ -158,10 +173,25 @@ export default {
     background-color: #fff;
     height: 100%;
     box-shadow: 0 0px 8px 0 rgba(0,0,0,.04),
-                0 0px 8px 0 rgba(0,0,0,.04)
+                0 0px 8px 0 rgba(0,0,0,.04);
+    transition: all 300ms ease-in-out;
   }
 
   .vendor-info p{
     color: #555;
+  }
+
+  .vendor-menu__mobile-button {
+    display: none;
+    position: fixed;
+    width: 100%;
+    bottom: 10px;
+    box-sizing: border-box;
+    padding: 0 8px;
+
+  }
+  .vendor-menu__basket--show {
+    right: 0 !important;
+    z-index: 9;
   }
 </style>

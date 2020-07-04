@@ -43,7 +43,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     .dish-item {
         background-color: #ffffff;
         box-shadow: 0 8px 8px 0 rgba(0,0,0,.04),

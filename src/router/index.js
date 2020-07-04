@@ -61,11 +61,32 @@ Vue.use(VueRouter)
     },
     component: () => import('../views/Admin/AdminEditVendor.vue'),
   },
+  {
+    path: '/delivery',
+    name: 'DeliveryHome',
+    meta: {
+      role: 3,
+    },
+    component: () => import('../views/Delivery/'),
+  },
+  {
+      path: '/delivery/my-orders',
+      name: 'DeliveryActiveOrders',
+      meta: {
+        role: 3,
+      },
+      component: () => import('../views/Delivery/DeliveryActiveOrder'),
+  },
   // {
   //   path: '/about',
   //   name: 'About',
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
+    {
+      path: '*',
+      name: 'Home',
+      component: Home
+    },
 ]
 
 const router = new VueRouter({
@@ -75,15 +96,22 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
-  if (to.name === 'History' && !store.getters.isAuthenticated) next({ name: 'Home' })
+  if (localStorage.userId) {
+    store.dispatch('findRole', {uid: localStorage.userId}).then(() => {
+      if (to.meta.role && +store.getters.getUser.role  !== +to.meta.role) next({ name: 'Home' })
+      if (+store.getters.getUser.role === 3 && to.name === 'Home') {
+        next({ name: 'DeliveryHome' })
+      }
+      next();
+    })
+  }
+
+  else if (to.name === 'History' && !store.getters.isAuthenticated) next({ name: 'Home' })
   // else next()
 
-  else if (to.meta.role && store.getters.getUser && store.getters.getUser.role  !== to.meta.role) next({ name: 'Home' })
-  // else next()
+  else if (to.params.resId && !store.getters.getUser) next({ name: 'Home' })
 
-  else if (to.params.resId && !store.getters.getUser) next({ name: 'Home' })  
-  else next()  
+  else next()
 })
 
 export default router

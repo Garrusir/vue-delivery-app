@@ -45,6 +45,10 @@
                     </div>
                 </div>
             </div>
+
+            <div class="basket__totalPrice">
+                Итого: {{ totalPrice }} ₽
+            </div>
             <BaseButton
                id='checkout'
                v-if="!hideOrderButton"
@@ -69,6 +73,9 @@
     computed: {
       basketItems() {
         return this.$store.getters.getBasketItems;
+      },
+      totalPrice() {
+        return this.$store.getters.getTotalPrice;
       }
     },
     components: {
@@ -153,5 +160,13 @@
             background-color: #555555;
             color: #cccccc;
         }
+    }
+
+    .basket__totalPrice {
+        border-top: 1px solid #e5e5e5;
+        padding-top: 8px;
+        margin: 16px 0;
+        font-weight: bold;
+        font-size: 21px;
     }
 </style>

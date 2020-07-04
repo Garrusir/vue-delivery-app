@@ -36,7 +36,7 @@ export default{
     updateUser(state, user) {
       if (user) {
         state.user = user;
-        localStorage.userId =user.uid;
+        localStorage.userId = user.uid;
       } else {
         state.user = null;
         localStorage.removeItem('userId');
@@ -62,15 +62,20 @@ export default{
   actions: {
     createUser({commit, dispatch}, user) {
       commit('setLoading', true);
-      firebase
+      return firebase
       .auth
       .createUserWithEmailAndPassword(user.email, user.password)
+      .then(({ user}) => {
+          return db
+            .collection('users')
+            .doc(user.uid)
+            .set({
+              restaurant: null,
+              role: 2,
+            })
+      })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log('error', error);
-        console.log('user', user);
-        console.log(errorCode, errorMessage);
         commit('setRegistrationError', {errorCode, email: user.email});
       })
       .finally(() => {

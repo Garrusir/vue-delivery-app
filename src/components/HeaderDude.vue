@@ -2,7 +2,7 @@
     <div class="header">
         <div class="header-wrap">
             <div
-            @click="$router.push('/')"
+            @click="$router.push({name: 'Home'}).catch(err => {})"
             class="header__logo">
                 <img src="@/assets/logo.svg">
                 <span class="header__title">Название</span>
@@ -30,18 +30,32 @@
                 </span>
                 <span class="header__text"> Администрация ресторана </span>
               </div>
+
               <div
-              v-if="user.role === 2"
+              v-if="user.role === 2 || !user.role"
               @click="$router.push('/history')"
               class="header__login">
                 <span class="header__icon material-icons">
                     person
                 </span>
-                <span class="header__text"> Мой заказ </span>
+                <span class="header__text"> Мои заказы </span>
               </div>
+
+              <div
+              v-if="user.role === 3"
+              @click="$router.push('/delivery/my-orders')"
+              class="header__login">
+                <span class="header__icon material-icons">
+                  fastfood
+                </span>
+                <span class="header__text"> Активные заказы </span>
+                </div>
               <div
               @click="logout"
               class="header__login">
+                <span class="header__icon material-icons">
+                  logout
+                </span>
                   <span class="header__text"> Выйти </span>
               </div>
             </div>
@@ -69,7 +83,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     .header {
         height: 72px;
     }

@@ -7,6 +7,7 @@ import basketState from "./modules/basketState";
 import authorization from "./modules/authorization";
 import orderHistory from "./modules/orderHistory";
 import administration from './modules/administration';
+import delivery from './modules/deliveryState';
 
 Vue.use(Vuex)
 
@@ -24,5 +25,6 @@ export default new Vuex.Store({
     authorization,
     orderHistory,
     administration,
+    delivery
   }
 })

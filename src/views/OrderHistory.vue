@@ -63,7 +63,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     .order-item {
         display: flex;
         flex-flow: row nowrap;

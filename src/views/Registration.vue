@@ -80,7 +80,6 @@
     },
     methods: {
       submit() {
-        console.log(this.name, this.password);
         this.$store.dispatch('createUser', {
             name: this.name,
             email: this.email,

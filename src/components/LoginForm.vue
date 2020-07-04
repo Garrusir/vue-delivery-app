@@ -28,10 +28,10 @@
             <span> У вас ещё нет аккаунта?
                 <a class="link" id='reg' @click="go('Registration')">Зарегистрироваться</a>
             </span>
-            <span>
+            <div class="main-form__error">
                 {{ errorMessage }}
                 {{ authError }}
-            </span>
+            </div>
             <div
             @click="$store.commit('closeLoginForm')"
             class="main-form__icon">
@@ -132,5 +132,10 @@
     }
     .loader {
         margin: 0 auto;
+    }
+    .main-form__error {
+        color: #f62b2b;
+        margin-top: 16px;
+        text-align: center;
     }
 </style>

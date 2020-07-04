@@ -1,8 +1,16 @@
 <template>
   <div class="order-page">
     <div class="order-page__header">
-      <button
-      @click="$router.go(-1)">Вернуться в меню</button>
+      <div
+      @click="$router.go(-1)"
+      class="order-page__link">
+        <i class="material-icons vendor-header__icon">
+          keyboard_arrow_left
+        </i>
+        <span>
+          Вернуться в меню
+        </span>
+      </div>
       <h1>Оформление заказа</h1>
     </div>
 
@@ -234,5 +242,13 @@ export default {
 
   .order-page__loader {
     margin: 20px auto;
+  }
+
+  .order-page__link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #999;
+    text-decoration: none;
   }
 </style>
